@@ -19,9 +19,19 @@ function initializeData() {
 // TASK: Get elements from the DOM
 const elements = {
 
-}
+  headerBoardName: document.getElementById('header-board-name'),
+  columnDivs: document.querySelectorAll('.column-div'),
+  hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
+  showSideBarBtn: document.getElementById('show-side-bar-btn'),
+  themeSwitch: document.getElementById('theme-switch'),
+  createNewTaskBtn: document.getElementById('add-new-task-btn'),
+  modalWindow: document.getElementById('new-task-modal-window'),
+  editTaskModal: document.getElementById('edit-task-modal-window'),
+  filterDiv: document.getElementById('filter-div'),
 
-let activeBoard = ""
+};
+
+let activeBoard = "";
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
