@@ -188,8 +188,8 @@ function setupEventListeners() {
 
 // Toggles tasks modal
 // Task: Fix bugs
-function toggleModal(show, modal = elements.modalWindow) {
-  modal.style.display = show ? 'block' => 'none';
+function toggleModal(show, modalElement = element.modalWindow) {
+  modalElement.style.display = show ? 'block' : 'none';
 }
 
 /*************************************************************************************************************************************************
@@ -201,8 +201,15 @@ function addTask(event) {
 
   //Assign user input to the task object
   const task = {
+    title: document.getElementById('task-title-input'),
+    board: activeBoard,
+    status: 'todo',
+    status: 'doing',
+    status: 'done',
+    id: new Date().getTime()
 
   };
+
   const newTask = createNewTask(task);
   if (newTask) {
     addTaskToUI(newTask);
