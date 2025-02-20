@@ -86,6 +86,7 @@ function filterAndDisplayTasksByBoard(boardName) {
                         </div>`;
 
     const tasksContainer = document.createElement("div");
+    tasksContainer.classList.add('tasks-container');
     column.appendChild(tasksContainer);
 
     filteredTasks.filter(task => task.status = status).forEach(task => {
