@@ -89,20 +89,18 @@ function filterAndDisplayTasksByBoard(boardName) {
     tasksContainer.classList.add('tasks-container');
     column.appendChild(tasksContainer);
 
-    filteredTasks.filter(task => task.status = status).forEach(task => {
+    filteredTasks.filter(task => task.status === status).forEach(task => {
       const taskElement = document.createElement("div");
       taskElement.classList.add("task-div");
       taskElement.textContent = task.title;
       taskElement.setAttribute('data-task-id', task.id);
 
       // Listen for a click event on each task and open a modal
-      taskElement.click() => {
-        openEditTaskModal(task);
-      });
+      taskElement.addEventListener('click', () => openEditTaskModal(task));
+      tasksContainer.appendChild(taskElement);
 
-    tasksContainer.appendChild(taskElement);
+    });
   });
-});
 }
 
 
