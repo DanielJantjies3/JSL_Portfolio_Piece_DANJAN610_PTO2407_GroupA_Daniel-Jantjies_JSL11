@@ -42,7 +42,7 @@ function fetchAndDisplayBoardsAndTasks() {
 
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"));
-    activeBoard = localStorageBoard ==null ? localStorageBoard : boards[0];
+    activeBoard = localStorageBoard || boards[0]; //checking if localstorage has data
     elements.headerBoardName.textContent = activeBoard;
     styleActiveBoard(activeBoard);
     refreshTasksUI();
@@ -137,7 +137,7 @@ function styleActiveBoard(boardName) {
 
 
 function addTaskToUI(task) {
-  const column = document.querySelector('.column-div[data-status="${task.status}"]');
+  const column = document.querySelector(`.column-div[data-status="${task.status}"]`);
   if (!column) {
     console.error(`Column not found for status: ${task.status}`);
     return;
@@ -201,7 +201,7 @@ function setupEventListeners() {
 
 // Toggles tasks modal
 // Task: Fix bugs
-function toggleModal(show, modalElement = element.modalWindow) {
+function toggleModal(show, modalElement = elements.modalWindow) {
   modalElement.style.display = show ? 'block' : 'none';
 
   //filter div added
@@ -252,7 +252,7 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
   document.getElementById('edit-task-title-input').value = task.title;
-  document.getElementById('edit-task-status-select').value = task.status;
+  document.getElementById('edit-select-status').value = task.status;
 
   // Set task details in modal inputs
   document.getElementById('edit-task-desc-input').value = task.description;
@@ -270,7 +270,7 @@ function openEditTaskModal(task) {
   // Delete task using a helper function and close the task modal
 
   const deleteTaskbtn = document.getElementById('delete-task-btn');
-  deleteTaskbtn.onclick = () => deleteTaskFromModal(task.id);
+  deleteTaskbtn.onclick = () => deleteTask(task.id);
 
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
@@ -299,6 +299,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function init() {
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', e => e.preventDefault());
+  });
   initializeData();
   setupEventListeners();
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
