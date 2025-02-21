@@ -27,7 +27,7 @@ const elements = {
   themeSwitch: document.getElementById('switch'),
   createNewTaskBtn: document.getElementById('add-new-task-btn'),
   modalWindow: document.getElementById('new-task-modal-window'),
-  editTaskModal: document.getElementsByClassName('.edit-task-modal-window'),
+  editTaskModal: document.querySelector('.edit-task-modal-window'),
   filterDiv: document.getElementById('filter-div'),
 };
 
@@ -157,7 +157,7 @@ function addTaskToUI(task) {
   taskElement.setAttribute('data-task-id', task.id);
   taskElement.addEventListener('click', () => openEditTaskModal(task));
 
-  tasksContainer.appendChild();
+  tasksContainer.appendChild(taskElement);
 }
 
 
@@ -280,7 +280,7 @@ function saveTaskChanges(taskId) {
   // Get new user inputs
   const updatedTask = {
     title: document.getElementById('edit-task-title-input').value,
-    status: document.getElementById('edit-task-status-select').value,
+    status: document.getElementById('edit-select-status').value,
     description: document.getElementById('edit-task-desc-input').value
   };
 
