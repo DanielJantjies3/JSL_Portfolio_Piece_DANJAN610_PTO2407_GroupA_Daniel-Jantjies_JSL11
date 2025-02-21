@@ -202,7 +202,7 @@ function setupEventListeners() {
 // Toggles tasks modal
 // Task: Fix bugs
 function toggleModal(show, modalElement = element.modalWindow) {
-  modalElement.style.display == show ? 'block' : 'none';
+  modalElement.style.display = show ? 'block' : 'none';
 
   //filter div added
   elements.filterDiv.style.display = show ? 'block' : 'none';
@@ -246,7 +246,6 @@ function toggleTheme() {
   document.body.classList.toggle('light-theme');
   const isLightTheme = document.body.classList.contains('light-theme');
   localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled');
-
 }
 
 
@@ -262,28 +261,16 @@ function openEditTaskModal(task) {
   // Get button elements from the task modal
 
 
-
   // Call saveTaskChanges upon click of Save Changes button
-  
-  //const saveChangesBtn = document.getElementById('save-task-changes-btn');
-  const saveChangesBtn =  document.getElementById('save-task-changes-btn').onclick = () => {
-    const updatedTask = {
-      title: document.getElementById('edit-task-title-input').value,
-      description: document.getElementById('edit-task-desc-input').value,
-      status: document.getElementById('edit-select-status').value,
-    };
+
+  const saveChangesBtn = document.getElementById('save-task-changes-btn');
   saveChangesBtn.onclick = () => saveTaskChanges(task.id);
 
 
   // Delete task using a helper function and close the task modal
 
-  //const deleteTaskbtn = document.getElementById('delete-task-btn');
-  const deleteTaskbtn =   document.getElementById('delete-task-btn').onclick = () => {
-    deleteTask(task.id);
-    toggleModal(false, elements.editTaskModal);
-    refreshTasksUI();
-  };
-  //deleteTaskbtn.onclick = () => deleteTaskFromModal(task.id);
+  const deleteTaskbtn = document.getElementById('delete-task-btn');
+  deleteTaskbtn.onclick = () => deleteTaskFromModal(task.id);
 
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
@@ -294,6 +281,7 @@ function saveTaskChanges(taskId) {
   const updatedTask = {
     title: document.getElementById('edit-task-title-input').value,
     status: document.getElementById('edit-task-status-select').value,
+    description: document.getElementById('edit-task-desc-input').value
   };
 
   patchTask(taskId, updatedTask);
@@ -311,10 +299,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function init() {
+  initializeData();
   setupEventListeners();
+  fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
+  const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
+  
+
+  //test code
+  document.body.classList.toggle('light-theme', isLightTheme);
+
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
-  const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
+  
   document.body.classList.toggle('light-theme', isLightTheme);
-  fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
+  
 }
