@@ -32,7 +32,7 @@ const elements = {
 
 };
 
-let activeBoard = "Agile Board";
+let activeBoard = "";
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
