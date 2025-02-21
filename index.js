@@ -29,6 +29,10 @@ const elements = {
   modalWindow: document.getElementById('new-task-modal-window'),
   editTaskModal: document.querySelector('.edit-task-modal-window'),
   filterDiv: document.getElementById('filter-div'),
+
+  //update elements
+  editBoardBtn: document.getElementById('edit-board-btn'),
+  editBoardDiv: document.getElementById('editBoardDiv'),
 };
 
 let activeBoard = "Agile Board";
@@ -85,13 +89,7 @@ function filterAndDisplayTasksByBoard(boardName) {
 
   elements.columnDivs.forEach(column => {
     const status = column.getAttribute("data-status");
-    // Reset column content while preserving the column title
-    // column.innerHTML = `<div class="column-head-div">
-    //                       <span class="dot" id="${status}-dot"></span>
-    //                       <h4 class="columnHeader">${status.toUpperCase()}</h4>
-    //                     </div>`;
 
-    //Refactoring header lines above
     const header = column.querySelector(".column-head-div");
     column.innerHTML = '';
     column.appendChild(header); // Keep original header
@@ -240,6 +238,9 @@ function toggleSidebar(show) {
   const sidebar = document.getElementById('side-bar-div');
   sidebar.style.display = show ? 'block' : 'none';
   localStorage.setItem('showSideBar', show ? 'true' : 'false');
+
+  // Toggle visibility of show/hide buttons
+  elements.showSideBarBtn.style.display = show ? 'none' : 'block';
 }
 
 function toggleTheme() {
