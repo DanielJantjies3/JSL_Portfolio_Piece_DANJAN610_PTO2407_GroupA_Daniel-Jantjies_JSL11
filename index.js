@@ -301,9 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function init() {
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', e => e.preventDefault());
-  });
+  //Fetch data to display on the UI
   initializeData();
   setupEventListeners();
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
