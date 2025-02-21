@@ -121,12 +121,6 @@ function styleActiveBoard(boardName) {
 
     btn.classList.toggle('active', btn.textContent === boardName);
 
-    // if (btn.textContent === boardName) {
-    //   btn.classList.add('active');
-    // }
-    // else {
-    //   btn.classList.remove('active');
-    // }
   });
 }
 
