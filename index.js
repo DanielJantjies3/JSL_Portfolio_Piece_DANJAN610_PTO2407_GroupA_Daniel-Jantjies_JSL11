@@ -1,4 +1,4 @@
-import { getTasks, createNewTask, patchTask, deleteTask } from './utils/taskFunctions';// TASK: import helper functions from utils
+import { getTasks, createNewTask, patchTask, deleteTask } from './utils/taskFunctions.js';// TASK: import helper functions from utils
 import { initialData } from './initialData.js'; // TASK : import initial data
 
 
@@ -20,15 +20,14 @@ function initializeData() {
 const elements = {
 
   headerBoardName: document.getElementById('header-board-name'),
-  columnDivs: document.querySelectorAll('.column-div'),
+  columnDivs: document.querySelectorAll('column-div'),
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
   showSideBarBtn: document.getElementById('show-side-bar-btn'),
   themeSwitch: document.getElementById('theme-switch'),
   createNewTaskBtn: document.getElementById('add-new-task-btn'),
   modalWindow: document.getElementById('new-task-modal-window'),
-  editTaskModal: document.getElementById('edit-task-modal-window'),
-  filterDiv: document.getElementById('filter-div')
-
+  editTaskModal: document.getElementsByClassName('edit-task-modal-window'),
+  filterDiv: document.getElementById('filter-div'),
 };
 
 let activeBoard = "";
