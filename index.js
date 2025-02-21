@@ -20,17 +20,17 @@ function initializeData() {
 const elements = {
 
   headerBoardName: document.getElementById('header-board-name'),
-  columnDivs: document.querySelectorAll('column-div'),
+  columnDivs: document.querySelectorAll('.column-div'),
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
   showSideBarBtn: document.getElementById('show-side-bar-btn'),
-  themeSwitch: document.getElementById('theme-switch'),
+  themeSwitch: document.getElementById('switch'),
   createNewTaskBtn: document.getElementById('add-new-task-btn'),
   modalWindow: document.getElementById('new-task-modal-window'),
-  editTaskModal: document.getElementsByClassName('edit-task-modal-window'),
+  editTaskModal: document.getElementsByClassName('.edit-task-modal-window'),
   filterDiv: document.getElementById('filter-div'),
 };
 
-let activeBoard = elements;
+let activeBoard = "Agile Board";
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
@@ -181,14 +181,14 @@ function setupEventListeners() {
 
   // Add new task form submission event listener
   elements.modalWindow.addEventListener('submit', (event) => {
-    addTask(event)
+    addTask(event);
   });
 }
 
 // Toggles tasks modal
 // Task: Fix bugs
 function toggleModal(show, modalElement = element.modalWindow) {
-  modalElement.style.display = show ? 'block' : 'none';
+  modalElement.style.display == show ? 'block' : 'none';
 }
 
 /*************************************************************************************************************************************************
@@ -205,7 +205,7 @@ function addTask(event) {
     status: 'todo',
     status: 'doing',
     status: 'done',
-    id: new Date().getTime()
+    id: new Date().getTime(),
 
   };
 
