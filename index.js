@@ -11,8 +11,9 @@ function initializeData() {
   if (!localStorage.getItem('tasks')) {
     localStorage.setItem('tasks', JSON.stringify(initialData));
     localStorage.setItem('showSideBar', 'true')
-  } else {
-    console.log('Data already exists in localStorage');
+  } 
+  if (!localStorage.getItem('activeBoard')) {
+    localStorage.setItem('activeBoard', JSON.stringify(activeBoard));
   }
 }
 
@@ -38,9 +39,10 @@ function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
   displayBoards(boards);
+
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"));
-    activeBoard = localStorageBoard ? localStorageBoard : boards[0];
+    activeBoard = localStorageBoard ==null ? localStorageBoard : boards[0];
     elements.headerBoardName.textContent = activeBoard;
     styleActiveBoard(activeBoard);
     refreshTasksUI();
@@ -57,10 +59,15 @@ function displayBoards(boards) {
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
     boardElement.addEventListener('click', () => {
-      elements.headerBoardName.textContent = board;
-      filterAndDisplayTasksByBoard(board);
       activeBoard = board; //assigns active board
       localStorage.setItem("activeBoard", JSON.stringify(activeBoard));
+      elements.headerBoardName.textContent = board;
+
+      
+      //filterAndDisplayTasksByBoard(board);
+      refreshTasksUI();
+
+      
       styleActiveBoard(activeBoard);
     });
     boardsContainer.appendChild(boardElement);
@@ -79,10 +86,15 @@ function filterAndDisplayTasksByBoard(boardName) {
   elements.columnDivs.forEach(column => {
     const status = column.getAttribute("data-status");
     // Reset column content while preserving the column title
-    column.innerHTML = `<div class="column-head-div">
-                          <span class="dot" id="${status}-dot"></span>
-                          <h4 class="columnHeader">${status.toUpperCase()}</h4>
-                        </div>`;
+    // column.innerHTML = `<div class="column-head-div">
+    //                       <span class="dot" id="${status}-dot"></span>
+    //                       <h4 class="columnHeader">${status.toUpperCase()}</h4>
+    //                     </div>`;
+
+    //Refactoring header lines above
+    const header = column.querySelector(".column-head-div");
+    column.innerHTML = '';
+    column.appendChild(header); // Keep original header
 
     const tasksContainer = document.createElement("div");
     tasksContainer.classList.add('tasks-container');
@@ -112,12 +124,14 @@ function refreshTasksUI() {
 function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').forEach(btn => {
 
-    if (btn.textContent === boardName) {
-      btn.classList.add('active');
-    }
-    else {
-      btn.classList.remove('active');
-    }
+    btn.classList.toggle('active', btn.textContent === boardName);
+
+    // if (btn.textContent === boardName) {
+    //   btn.classList.add('active');
+    // }
+    // else {
+    //   btn.classList.remove('active');
+    // }
   });
 }
 
@@ -189,6 +203,9 @@ function setupEventListeners() {
 // Task: Fix bugs
 function toggleModal(show, modalElement = element.modalWindow) {
   modalElement.style.display == show ? 'block' : 'none';
+
+  //filter div added
+  elements.filterDiv.style.display = show ? 'block' : 'none';
 }
 
 /*************************************************************************************************************************************************
@@ -200,11 +217,10 @@ function addTask(event) {
 
   //Assign user input to the task object
   const task = {
-    title: document.getElementById('task-title-input'),
+    title: document.getElementById('title-input').value,// removed prefix "task"
+    description: document.getElementById('desc-input').value,
+    status: document.getElementById('select-status').value,
     board: activeBoard,
-    status: 'todo',
-    status: 'doing',
-    status: 'done',
     id: new Date().getTime(),
 
   };
