@@ -30,9 +30,6 @@ const elements = {
   editTaskModal: document.querySelector('.edit-task-modal-window'),
   filterDiv: document.getElementById('filter-div'),
 
-  //update elements
-  editBoardBtn: document.getElementById('edit-board-btn'),
-  editBoardDiv: document.getElementById('editBoardDiv'),
 };
 
 let activeBoard = "Agile Board";
