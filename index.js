@@ -270,7 +270,11 @@ function openEditTaskModal(task) {
   // Delete task using a helper function and close the task modal
 
   const deleteTaskbtn = document.getElementById('delete-task-btn');
-  deleteTaskbtn.onclick = () => deleteTask(task.id);
+  deleteTaskbtn.onclick = () => {
+    deleteTask(task.id);
+    toggleModal(false,elements.editTaskModal);
+    refreshTasksUI();
+  }
 
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
